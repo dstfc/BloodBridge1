@@ -1,0 +1,45 @@
+My sql link
+mysql -h <sql end point> -P 3306 -u admin -p
+mysql -h bloodbridge-db.czceaagk2hp5.us-east-1.rds.amazonaws.com -P 3306 -u admin -p
+
+Website
+http://<EC2-Public-IP>:5000
+http://98.81.0.140:5000
+
+Open EC2 commands
+ssh -i "<yourkey.pem" ec2-user@<EC2-Public-IP>
+ssh -i "bloodbridge-key.pem" ec2-user@3.87.7.233
+
+source venv/bin/activate
+cd <git_repositorie_name>
+python3 app.py
+
+
+(reomended when no attribute found)
+pip install mysql-connector-python
+pip install -r requirements.txt
+
+
+
+EC2 Commands(use this commands only the first time when accessing the EC2)
+
+sudo yum update -y
+sudo yum install python3 -y
+sudo yum install python3-pip -y
+sudo pip3 install victualing
+python3 -m venv venv
+pip install flask
+sudo yum install git -y
+git clone <your repositorie link>
+git clone https://github.com/danigani07/bloodbridge.git
+
+cd <your repository name>
+cd bloodbridge
+
+pip3 install mysql-connector-python
+pip3 install -r requirements.txt
+python3 app.py
+
+
+
+
