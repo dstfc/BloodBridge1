@@ -1,4 +1,4 @@
-Blood-Bridge
+## Blood-Bridge
 
 DB Setup
 
@@ -41,6 +41,14 @@ cd
 pip install mysql-connector-python
 
 python app.py
-AWS console screenshots# readme
-![Screenshot 2024-11-24 093618](https://github.com/user-attachments/assets/779bc81f-dad2-4a58-a9e7-3f69c56558fc)
+## AWS console screenshots# readme
+
+![Instance creation](https://github.com/user-attachments/assets/779bc81f-dad2-4a58-a9e7-3f69c56558fc)
+
+![Blood Bridge link](https://github.com/user-attachments/assets/f09e9bc5-016a-4b18-bffc-f7a70767c117)
+
+![Application creation](https://github.com/user-attachments/assets/2baa8e98-288b-4f4a-8ace-1b40a59c907b)
+
+
+
 
