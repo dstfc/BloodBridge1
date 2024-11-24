@@ -50,7 +50,7 @@ python app.py
 ![Application creation](https://github.com/user-attachments/assets/2baa8e98-288b-4f4a-8ace-1b40a59c907b)
 
 ## AWS console Demo video
-![Video](https://drive.google.com/file/d/1-OfmjiyagSfUUHABZAlX9ApGEXbY1Vlf/view?usp=sharing)
+![Video](https://drive.google.com/file/d/1c-Vy9E1K7yh6E_I1Lv3JRQMqWn6E-piE/view?usp=sharing)
 
 
 
