@@ -1,0 +1,45 @@
+<!-- dashboard.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>BloodBridge - Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Welcome, {{ user['fullname'] }}</h1>
+        <nav>
+            {% if user['role'] == 'requestor' %}
+                <a href="{{ url_for('req') }}" class="nav-link">Create Request</a>
+            {% endif %}
+            <a href="{{ url_for('login') }}" class="nav-logout">Logout</a>
+        </nav>
+    </header>
+    <main>
+        {% if user['role'] == 'requestor' %}
+            <h2>Your Blood Requests</h2>
+            {% if requests %}
+                <ul class="request-list">
+                    {% for request in requests %}
+                        <li class="request-item">
+                            <div class="request-details">
+                                <p>Date: {{ request.date.strftime('%Y-%m-%d %H:%M') if request.date else 'N/A' }}</p>
+                                <p>Location: {{ request.location }}</p>
+                                <p>Blood Type: {{ request.blood_type }}</p>
+                                <p>Urgency: {{ request.urgency }}</p>
+                                <p>Status: {{ request.status }}</p>
+                                {% if request.donor_name %}
+                                    <p>Donor: {{ request.donor_name }}</p>
+                                {% endif %}
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No requests found.</p>
+            {% endif %}
+        {% endif %}
+    </main>
+</body>
+</html>

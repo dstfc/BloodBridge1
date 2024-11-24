@@ -1,0 +1,97 @@
+<!-- inventory.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>BloodBridge - Inventory Manager</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Welcome, {{ user['fullname'] }}</h1>
+        <nav>
+            <a href="{{ url_for('login') }}" class="nav-logout">Logout</a>
+        </nav>
+    </header>
+    <main>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="flash-message">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <h2>Update Inventory</h2>
+        <form action="{{ url_for('inventory') }}" method="post" class="inventory-form">
+            <div class="form-group">
+                <label for="blood_type">Blood Type:</label>
+                <select name="blood_type" required>
+                    <option value="">Select Blood Type</option>
+                    <option value="A+">A+</option>
+                    <option value="A-">A-</option>
+                    <option value="B+">B+</option>
+                    <option value="B-">B-</option>
+                    <option value="AB+">AB+</option>
+                    <option value="AB-">AB-</option>
+                    <option value="O+">O+</option>
+                    <option value="O-">O-</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="stock_level">Stock Level:</label>
+                <input type="number" name="stock_level" min="0" required>
+            </div>
+
+            <input type="submit" value="Update Inventory" class="submit-btn">
+        </form>
+
+        <h2>Current Inventory Levels</h2>
+        <ul class="inventory-list">
+            {% for item in inventory %}
+                <li class="inventory-item">
+                    <span class="blood-type">{{ item['blood_type'] }}</span>: 
+                    <span class="stock-level">{{ item['stock_level'] }}</span> units
+                </li>
+            {% endfor %}
+        </ul>
+
+        <div class="pending-requests">
+            <h2>Blood Requests</h2>
+            {% if pending_requests %}
+                <ul class="request-list">
+                    {% for request in pending_requests %}
+                        <li class="request-item">
+                            <div class="request-details">
+                                <p>Requestor: {{ request.requester_name }}</p>
+                                <p>Date: {{ request.date.strftime('%Y-%m-%d %H:%M') if request.date else 'N/A' }}</p>
+                                <p>Location: {{ request.location }}</p>
+                                <p>Blood Type: {{ request.blood_type }}</p>
+                                <p>Urgency: {{ request.urgency }}</p>
+                                <p class="status {{ request.manager_approval }}">
+                                    Status: {{ request.manager_approval|title if request.manager_approval else 'Pending' }}
+                                </p>
+                            </div>
+                            {% if request.manager_approval == 'pending' %}
+                                <div class="approval-buttons">
+                                    <form action="{{ url_for('approve_request', request_id=request.id) }}" method="post" class="inline-form">
+                                        <input type="hidden" name="action" value="approve">
+                                        <button type="submit" class="approve-btn">Approve</button>
+                                    </form>
+                                    <form action="{{ url_for('approve_request', request_id=request.id) }}" method="post" class="inline-form">
+                                        <input type="hidden" name="action" value="reject">
+                                        <button type="submit" class="reject-btn">Reject</button>
+                                    </form>
+                                </div>
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No requests found</p>
+            {% endif %}
+        </div>
+    </main>
+</body>
+</html> 

@@ -1,0 +1,78 @@
+<!-- donor_dashboard.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>BloodBridge - Donor Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Welcome, {{ user['fullname'] }}</h1>
+        <nav>
+            <a href="{{ url_for('login') }}" class="nav-logout">Logout</a>
+        </nav>
+    </header>
+    <main>
+        <div class="pending-requests">
+            <h2>Available Blood Requests</h2>
+            {% if requests %}
+                <ul class="request-list">
+                    {% for request in requests %}
+                        <li class="request-item">
+                            <div class="request-details">
+                                <p>Date: {{ request.formatted_date }}</p>
+                                <p>Location: {{ request.location }}</p>
+                                <p>Blood Type Needed: {{ request.blood_type }}</p>
+                                <p>Urgency: {{ request.urgency }}</p>
+                                <p>Requested by: {{ request.requester_name }}</p>
+                                <p class="status {{ request.status }}">
+                                    Status: {{ request.status|title }}
+                                </p>
+                                {% if request.status == 'pending' %}
+                                    <div class="approval-buttons">
+                                        <form action="{{ url_for('approve_request', request_id=request.id) }}" method="post" class="inline-form">
+                                            <input type="hidden" name="action" value="accept">
+                                            <button type="submit" class="approve-btn">Donate</button>
+                                        </form>
+                                        <form action="{{ url_for('approve_request', request_id=request.id) }}" method="post" class="inline-form">
+                                            <input type="hidden" name="action" value="reject">
+                                            <button type="submit" class="reject-btn">Reject</button>
+                                        </form>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No blood requests available.</p>
+            {% endif %}
+        </div>
+
+        <div class="donor-responses">
+            <h2>Your Donation History</h2>
+            {% if donor_responses %}
+                <ul class="response-list">
+                    {% for response in donor_responses %}
+                        <li class="response-item">
+                            <div class="response-details">
+                                <p>Date: {{ response.formatted_date }}</p>
+                                <p>Location: {{ response.location }}</p>
+                                <p>Blood Type: {{ response.blood_type }}</p>
+                                <p>Urgency: {{ response.urgency }}</p>
+                                <p>Requested by: {{ response.requester_name }}</p>
+                                <p class="status {{ response.status }}">
+                                    Status: {{ response.status|title }}
+                                </p>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No donation history yet.</p>
+            {% endif %}
+        </div>
+    </main>
+</body>
+</html> 

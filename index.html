@@ -1,0 +1,48 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>BloodBridge - Home</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Welcome to BloodBridge</h1>
+        <nav>
+            <a href="{{ url_for('register') }}">Register</a>
+            <a href="{{ url_for('login') }}">Login</a>
+        </nav>
+    </header>
+    <div class="hero-section">
+        <img src="{{ url_for('static', filename='images/img1.webp') }}" alt="Blood Donation" class="hero-image">
+        <div class="hero-overlay"></div>
+    </div>
+    <main>
+        <div class="index-container">
+            <h2>Save Lives Through Blood Donation</h2>
+            <p class="intro-text">Join our community of lifesavers! Whether you're a donor, requestor, or blood bank manager, BloodBridge connects those in need with those who can help.</p>
+            
+            <div class="action-buttons">
+                <a href="{{ url_for('register') }}" class="cta-button register">Register Now</a>
+                <a href="{{ url_for('login') }}" class="cta-button login">Login</a>
+            </div>
+
+            <div class="features">
+                <div class="feature-card">
+                    <h3>For Donors</h3>
+                    <p>Make a difference by donating blood to those in need.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>For Requestors</h3>
+                    <p>Find blood donors quickly and efficiently.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>For Blood Banks</h3>
+                    <p>Manage your blood inventory effectively.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

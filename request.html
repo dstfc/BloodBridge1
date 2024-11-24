@@ -1,0 +1,96 @@
+<!-- request.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>BloodBridge - Create Request</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Create Blood Request</h1>
+        <nav>
+            <a href="{{ url_for('dashboard') }}" class="nav-link">Dashboard</a>
+            <a href="{{ url_for('login') }}" class="nav-logout">Logout</a>
+        </nav>
+    </header>
+    <main>
+        <div class="request-container">
+            <h2>Submit Blood Request</h2>
+            <form action="{{ url_for('req') }}" method="post" class="request-form">
+                <div class="form-group">
+                    <label for="location">Location:</label>
+                    <input type="text" name="location" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="blood_type">Blood Type Needed:</label>
+                    <select name="blood_type" required>
+                        <option value="">Select Blood Type</option>
+                        <option value="A+">A+</option>
+                        <option value="A-">A-</option>
+                        <option value="B+">B+</option>
+                        <option value="B-">B-</option>
+                        <option value="AB+">AB+</option>
+                        <option value="AB-">AB-</option>
+                        <option value="O+">O+</option>
+                        <option value="O-">O-</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="urgency">Urgency Level:</label>
+                    <select name="urgency" required>
+                        <option value="">Select Urgency</option>
+                        <option value="High">High</option>
+                        <option value="Medium">Medium</option>
+                        <option value="Low">Low</option>
+                    </select>
+                </div>
+
+                <input type="submit" value="Submit Request" class="submit-btn">
+            </form>
+        </div>
+
+        <div class="manager-approval-status">
+            <h2>Manager Approval Status</h2>
+            {% if pending_requests %}
+                <ul class="request-list">
+                    {% for request in pending_requests %}
+                        <li class="request-item">
+                            <div class="request-details">
+                                <p>Date: {{ request.date.strftime('%Y-%m-%d %H:%M') if request.date else 'N/A' }}</p>
+                                <p>Location: {{ request.location }}</p>
+                                <p>Blood Type: {{ request.blood_type }}</p>
+                                <p>Urgency: {{ request.urgency }}</p>
+                                <p class="status {{ request.status }}">
+                                    Status: 
+                                    {% if request.status == 'donated' %}
+                                        Donated
+                                    {% elif request.status == 'rejected' %}
+                                        Rejected
+                                    {% else %}
+                                        Pending
+                                    {% endif %}
+                                </p>
+                                <p class="status {{ request.manager_approval }}">
+                                    Manager Approval: 
+                                    {% if request.manager_approval == 'approve' %}
+                                        Approved
+                                    {% elif request.manager_approval == 'reject' %}
+                                        Rejected
+                                    {% else %}
+                                        Pending
+                                    {% endif %}
+                                </p>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No pending requests</p>
+            {% endif %}
+        </div>
+    </main>
+</body>
+</html>

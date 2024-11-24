@@ -1,0 +1,81 @@
+<!-- register.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>BloodBridge - Register</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Register for BloodBridge</h1>
+        <nav>
+            <a href="{{ url_for('login') }}">Login</a>
+            <a href="{{ url_for('index') }}">Home</a>
+        </nav>
+    </header>
+    <div class="hero-section">
+        <img src="{{ url_for('static', filename='images/img2.jpg') }}" alt="Blood Donation Registration" class="hero-image">
+        <div class="hero-overlay"></div>
+    </div>
+    <main>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="flash-message">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        
+        <div class="register-container">
+            <h2>Create Your Account</h2>
+            <form action="{{ url_for('register') }}" method="post" class="register-form">
+                <div class="form-group">
+                    <label for="fullname">Full Name:</label>
+                    <input type="text" name="fullname" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" name="email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" name="password" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="role">Register as:</label>
+                    <select name="role" required>
+                        <option value="">Select Role</option>
+                        <option value="manager">Blood Bank Manager</option>
+                        <option value="donor">Blood Donor</option>
+                        <option value="requestor">Blood Requestor</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="blood_type">Blood Type:</label>
+                    <select name="blood_type" required>
+                        <option value="">Select Blood Type</option>
+                        <option value="A+">A+</option>
+                        <option value="A-">A-</option>
+                        <option value="B+">B+</option>
+                        <option value="B-">B-</option>
+                        <option value="AB+">AB+</option>
+                        <option value="AB-">AB-</option>
+                        <option value="O+">O+</option>
+                        <option value="O-">O-</option>
+                    </select>
+                </div>
+
+                <input type="submit" value="Register" class="submit-btn">
+            </form>
+            <div class="login-link">
+                <p>Already have an account? <a href="{{ url_for('login') }}">Login here</a></p>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
